@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Control : MonoBehaviour
+public class CarriageControl : MonoBehaviour
 {
     public float acc = 0.5f;
     public float speed = 0;
