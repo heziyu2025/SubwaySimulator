@@ -3,8 +3,9 @@ using UnityEngine;
 public class PathFollow : MonoBehaviour
 {
     public Transform[] waypoints;   // 存储路径节点的数组
-    public float speed = 1f;        // 物体在路径上的移动速度
+    public float speed = 0;        // 物体在路径上的移动速度
     public bool loop = false;       // 是否循环移动
+    public float acc = 0.5f;
 
     private int currentWaypoint = 0; // 当前路径节点的索引
 
@@ -17,7 +18,7 @@ public class PathFollow : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
 
             // 当物体接近当前节点时，切换到下一个节点
-            if (Vector3.Distance(transform.position, targetPosition) < 1)
+            if (Vector3.Distance(transform.position, targetPosition) < 2)
             {
                 currentWaypoint++;
             }
@@ -29,12 +30,16 @@ public class PathFollow : MonoBehaviour
                 {
                     currentWaypoint = 0;
                 }
-                else
-                {
-                    // 如果不循环，则停止移动或执行其他操作
-                    // 这里可以添加你想要的逻辑
-                }
             }
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            speed += acc / 1000;
+        }
+        else
+        {
+            speed *= 0.99f;
         }
     }
 }
